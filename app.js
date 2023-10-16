@@ -1,11 +1,12 @@
 const app = Vue.createApp({
     data() {
         return {
+            url: "http://lahiru.info",
             showBooks: true,
             books: [
-                { title: 'name of the wind', author: 'patrick rothfuss' },
-                { title: 'the way of kings', author: 'brandon sanderson' },
-                { title: 'the final empire', author: 'patrick rothfuss' },
+                { title: 'name of the wind', author: 'patrick rothfuss', img: 'assets/1.jpg' },
+                { title: 'the way of kings', author: 'brandon sanderson', img: 'assets/2.jpg' },
+                { title: 'the final empire', author: 'patrick rothfuss', img: 'assets/3.jpg' },
             ]
         }
     },
