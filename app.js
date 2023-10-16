@@ -30,6 +30,11 @@ const app = Vue.createApp({
         toogleFav(book) {
             book.isFav = !book.isFav
         }
+    },
+    computed: {
+        filteredBooks() {
+            return this.books.filter((book) => book.isFav)
+        }
     }
 });
 app.mount('#app');
