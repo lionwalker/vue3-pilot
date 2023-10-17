@@ -1,4 +1,4 @@
-# reaction-timer
+# vue3-pilot
 
 ## Project setup
 ```
