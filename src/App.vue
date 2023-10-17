@@ -1,68 +1,67 @@
 <template>
-  <h1>{{ title }}</h1>
-  <p>Welcome ...... </p>
-  <teleport to=".modals" v-if="showModal">
-    <Modal theme="sale" @close="toggleModal">
-      <template v-slot:links>
-        <a href="#">sign up now</a>
-        <a href="#">more info</a>
-      </template>
-      
-      <h1>{{ header }}</h1>
-      <p>{{ text }}</p>
-    </Modal>
-  </teleport>
-  <teleport to=".modals" v-if="showModalTwo">
-    <Modal theme="sale" @close="toggleModalTwo">      
-      <h1>sign up to the newsletter</h1>
-      <p>for updates and promo codes!</p>
-    </Modal>
-  </teleport>
-  <button @click.alt="toggleModal">open modal (alt)</button>
-  <button @click="toggleModalTwo">open modal</button>
+  <h1>LWalker's Reaction Timer</h1>
+  <button @click="start" :disabled="isPlaying">play</button>
+  <Block v-if="isPlaying" :delay="delay" @end="endGame" />
+  <Results v-if="showResults" :score="score" />
 </template>
 
 <script>
-import Modal from "./components/Modal.vue";
+import Block from './components/Block.vue'
+import Results from './components/Results.vue'
 
 export default {
   name: 'App',
+  components: {
+    Block,
+    Results
+  },
   data() {
     return {
-      title: 'My first Vue app',
-      header: 'Sign up for the Giveaway!',
-      text: 'Grab your walker\'s swag for half price!',
-      showModal: false,
-      showModalTwo: false,
+      isPlaying: false,
+      delay: null,
+      score: null,
+      showResults: false
     }
   },
   methods: {
-    toggleModal() {
-      this.showModal = !this.showModal
+    start() {
+      this.delay = 2000 + Math.random() * 5000
+      this.isPlaying = true
+      this.showResults = false
     },
-    toggleModalTwo() {
-      this.showModalTwo = !this.showModalTwo
+    endGame(reactionTime) {
+      this.score = reactionTime
+      this.isPlaying = false
+      this.showResults = true
     }
-  },
-  components: {
-    Modal
   }
 }
 </script>
 
 <style>
-#app, .modals {
+#app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #444;
   margin-top: 60px;
 }
 
-h1 {
-  border-bottom: 1px solid #ddd;
-  display: inline-block;
-  padding-bottom: 10px;
+button {
+  background: #0faf87;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 16px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+button[disabled] {
+  opacity: 0.2;
+  cursor: not-allowed;
 }
 </style>
